@@ -1,0 +1,9 @@
+firmware version reply: 7.01 hw 75_300
+TIM1 registers read back at 9.5 s: CR1=0xb1 PSC=0 ARR=5600 BDTR=0xac94
+first PWM edges 0.3034 s; period 66.67 us = 15.00 kHz; cycles U/V/W 76188/76188/76188
+dead time PA8 fall -> PB13 rise: 1000 ns
+command 0.05: pad duty U 46.34 %  V 50.66 %  W 50.66 %; V-U 4.32 pts (duty x sqrt3/2 = 4.33); telemetry duty 0.049
+command 0.10: pad duty U 44.18 %  V 52.82 %  W 52.82 %; V-U 8.64 pts (duty x sqrt3/2 = 8.66); telemetry duty 0.099
+command 0.20: pad duty U 39.84 %  V 57.14 %  W 57.14 %; V-U 17.30 pts (duty x sqrt3/2 = 17.32); telemetry duty 0.199
+command 0.00: pad duty U 48.50 %  V 48.50 %  W 48.50 %; V-U 0.00 pts (duty x sqrt3/2 = 0.00); telemetry duty 0.000
+telemetry: 187 COMM_GET_VALUES replies; vin 47.9 V (stimulus 48.0) then 43.9 V (stimulus 44.0); fault codes seen: [0]

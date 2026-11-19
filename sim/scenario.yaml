@@ -1,0 +1,12 @@
+machines:
+  vesc:
+    mcu: STM32F405RG
+    overlay: vesc.board
+    elf: vesc_75_300.elf
+    parts:
+      - { name: tool,  type: uart-device, baud: 115200, script: tool.py }
+      - { name: stim,  type: peripheral, address: 0xA0000400, size: 0x4, script: adc_stim.py }
+      - { name: probe, type: peripheral, address: 0xA0000500, size: 0x4, script: probe.py }
+media:
+  - { type: uart, connect: [vesc.usart3, vesc.tool] }
+timeout: 13
