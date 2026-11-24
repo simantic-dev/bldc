@@ -10,12 +10,12 @@ STM32F405RG) runs unmodified on a simulated F405. A scripted UART host speaks th
 `COMM_GET_VALUES`, `COMM_SET_DUTY`) and the TIM1 gate-driver pads are recorded. No board, no motor. Everything is in [`sim/`](sim/).
 
 ```
-cd sim && SIM=/path/to/sim ./run.sh     # needs the F405 timer/ADC trigger model (see "Needs a newer sim"); the plot needs python3 + matplotlib
+cd sim && ./run.sh     # needs released sim 0.10.8 or later; the plot needs python3 + matplotlib
 ```
 
 ![TIM1 pad duty, dead time and telemetry](sim/vesc.png)
 
-**Measured, from a real run** ([`sim/run.log`](sim/run.log), [`sim/measured.txt`](sim/measured.txt); 13 s of virtual time):
+**Measured, from a real run** ([`sim/run.log`](sim/run.log), [`sim/measured.txt`](sim/measured.txt); 13 s of virtual time in 71 s of wall clock, released sim 0.10.8 build 64f89c38; output identical to the earlier pre-release run):
 
 - Build: `make fw_75_300 ARM_SDK_PREFIX=arm-none-eabi- ULIBS="-lm -u _printf_float"` with arm-none-eabi-gcc 15.2, no source change.
 - `COMM_FW_VERSION` answers `7.01`, hardware name `75_300`. The firmware's motor init waits for the pack voltage to settle and
@@ -39,18 +39,12 @@ cd sim && SIM=/path/to/sim ./run.sh     # needs the F405 timer/ADC trigger model
 
 **What does not work / is not shown**
 
-- **Needs a newer sim.** Released `sim` 0.10.4 does not convert the F405 ADC: TIM1's update event does not reset TIM2 (`TIM2.SMCR` = 0x4, ITR0,
-  as the firmware sets it) so the TIM2 CC2 ADC trigger fires about once per 65536 ticks. On 0.10.4 the firmware reads `vin` 0.0 and a MOSFET temperature of -273 C (ADC code 0), waits its full 10 s calibration timeout, the UART app answers from 10.35 s, and the duty command never reaches the pads
-  (reported duty 0.000, pads idle at 50 %). The numbers above come from a pre-release pyrite build (`sim 0.10.0`, commit `50d3404e`) that has the
-  F405 timer-trigger / ADC-triple-mode work of [pyrite#3515](https://github.com/simantic-dev/pyrite/pull/3515). That PR was merged into a stacked
-  branch, not `main`: [pyrite#3813](https://github.com/simantic-dev/pyrite/issues/3813).
 - No motor and no encoder or hall input: `erpm` stays 0, phase currents stay 0, and `COMM_SET_DUTY` in FOC mode with no rotor shows only the
   voltage vector (duty x Vbus / sqrt(3)) at a fixed angle. Current control, the observer, start-up, regen and the fault paths are not exercised.
   The firmware's own FOC under a plant is in the sim-fixtures `ebike-vesc` fixtures.
 - Default motor configuration (`MCCONF` defaults, FOC): no `COMM_SET_MCCONF` is sent.
 - Only hardware `75_300` is run. CAN, USB, LispBM, the IMU and BLE are not wired.
 - The HSE crystal is 8 MHz (`vesc.board`, `HSE_VALUE` of the target).
-- Wall clock: 62 s for 13 s of virtual time on the pre-release build.
 
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)

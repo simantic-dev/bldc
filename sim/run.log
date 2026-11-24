@@ -1,4 +1,5 @@
 [stim] STIM pack voltage 48.0 V
+[machine] reset: source=core kind=soft
 [probe] TIM1 t=2.00 CR1=0xb1 PSC=0 ARR=5600 BDTR=0xac94 CCER=0x1111 CCR1=2800 CCR2=2800 CCR3=2800
 [3.650000s] (usart3 ← tool) ...@..
 [tool] VESC t=3.65 erpm=0 imot=0.00 ibat=0.00 iq=0.00 duty=0.000 vin=47.9 tfet=25.0 fault=0
@@ -779,10 +780,10 @@
 [12.960000s] (usart3 ← tool) .......#W.
 [12.950583s] (usart3 → tool) .J.......................................................]J....................
 [12.980000s] (usart3 ← tool) .......#W.
-loop skip [vesc] core 0: taken 3028446 refused-after-dry-run 817089 instructions skipped 581288610 (depth memo hits 578)
-jit [vesc] core 0: 4249 blocks, 382633379 of 1602615500 instructions in blocks (23.9%), 4.9 per block run, 7.2 per chain, 14.8% of block runs linked; terminators [("side-exit at a non-plain access (runs)", 10193032), ("branch Bcond", 1163), ("branch BCondW", 640), ("branch Bl", 608), ("cache-miss", 474), ("branch Bx", 243), ("branch B", 226), ("branch Cbz", 189), ("branch Pop", 123), ("Cps", 74)]
+loop skip [vesc] core 0: taken 1139185 refused-after-dry-run 563001 instructions skipped 373967769 (depth memo hits 1976)
+jit [vesc] core 0: 4281 blocks, 384657209 of 1809936341 instructions in blocks (21.3%), 4.8 per block run, 1.5 per chain, 31.1% of block runs linked; terminators [("side-exit at a non-plain access (runs)", 10195012), ("branch Bcond", 1195), ("branch BCondW", 641), ("branch Bl", 626), ("cache-miss", 468), ("branch B", 270), ("branch Bx", 252), ("branch Cbz", 193), ("branch Pop", 135), ("branch BW", 46)]
 timing (vesc): 168000000 instructions/s (clock-tree + stm32f405 table), 5.9523809523809526 ns/insn, cycle table, wait states cycle table, irq jitter 0 ns seed 1, 16 declared assumptions
-Recorded: run 1 into /var/folders/y2/_t0jvjs571xcc12kqtv565sm0000gn/T/tmp.3rLzU7Uqes (seq 0..=3839943): fault 0, frame 18937, gpio 914964, isr 2905467, isr_usage 1, log 0, uart 574
+Recorded: run 1 into /var/folders/y2/_t0jvjs571xcc12kqtv565sm0000gn/T/tmp.vBfFUnss37 (seq 0..=3839943): fault 0, frame 18937, gpio 914964, isr 2905467, isr_usage 1, log 0, uart 574
 Scenario: scenario.yaml
   vesc
-Elapsed: 61.388s
+Elapsed: 71.358s
